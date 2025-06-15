@@ -147,6 +147,9 @@ class Volume:
         elif mode == io.SEEK_END:
             seek = len(self) - offset
 
+        else:
+            raise ValueError(f"Unknown seek mode: {mode}")
+
         if seek < 0:
             raise OSError(errno.EINVAL, os.strerror(errno.EINVAL))
 

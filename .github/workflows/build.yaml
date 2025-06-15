@@ -31,6 +31,12 @@ jobs:
         run: |
           python3 -m pip install ruff
           ruff check --config tests/.ruff.toml -- $( git ls-tree -r --name-only HEAD | 'grep' -E '[.]py$' )
+      - name: Pylint
+        run: |
+          python3 -m pip install pylint
+          # TODO There are still some error messages (starting with E) that I do not know how to best fix!
+          #      Remove the || true after fixing those.
+          pylint --disable=C0103,C0114,C0115,C0116,C0301,R0902,R0903,R0913,R0917,fixme ext4 || true
 
   test:
     name: Test on ${{ matrix.os }} python ${{ matrix.python }}
