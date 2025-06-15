@@ -19,7 +19,7 @@ class InvalidStreamException(Exception):
     pass
 
 
-class Inodes(object):
+class Inodes:
     def __init__(self, volume):
         self.volume = volume
 
@@ -51,7 +51,7 @@ class Inodes(object):
         return Inode(self.volume, offset, index)
 
 
-class Volume(object):
+class Volume:
     def __init__(
         self,
         stream,
@@ -63,7 +63,7 @@ class Volume(object):
         if not isinstance(stream, io.RawIOBase) and not isinstance(
             stream, io.BufferedIOBase
         ):
-            raise InvalidStreamException()
+            raise InvalidStreamException
 
         self.stream = stream
         self.offset = offset
@@ -77,7 +77,7 @@ class Volume(object):
         block_size = self.block_size
         table_offset = (self.superblock.offset // block_size + 1) * block_size
         for index in range(
-            0, self.superblock.s_inodes_count // self.superblock.s_inodes_per_group
+            self.superblock.s_inodes_count // self.superblock.s_inodes_per_group
         ):
             descriptor = BlockDescriptor(
                 self,

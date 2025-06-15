@@ -1,0 +1,12 @@
+line-length = 120
+target-version = "py39"
+
+[lint]
+select = [
+    "A", "B", "E", "F", "G", "W", "N", "ASYNC", "C4", "COM", "FLY", "FURB", "ICN", "INT", "ISC", "LOG",
+    "PERF", "PIE", "PLW", "PT", "PYI", "RET", "RSE", "RUF", "SIM", "TID", "TC", "UP", "YTT"
+]
+ignore = ["B028", "N801", "N802", "N818", "COM812",  "RUF012", "RUF022"]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []

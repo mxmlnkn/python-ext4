@@ -143,7 +143,7 @@ class ExtendedAttributeEntry(ExtendedAttributeBase):
 
     @property
     def name_str(self):
-        if 0 > self.e_name_index or self.e_name_index > len(
+        if self.e_name_index < 0 or self.e_name_index > len(
             ExtendedAttributeEntry.NAME_INDICES
         ):
             raise ExtendedAttributeError(

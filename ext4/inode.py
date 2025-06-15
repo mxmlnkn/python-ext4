@@ -281,7 +281,7 @@ class Inode(Ext4Struct):
 
     def _open(self, mode="rb", encoding=None, newline=None):
         if mode != "rb" or encoding is not None or newline is not None:
-            raise NotImplementedError()
+            raise NotImplementedError
 
         if self.is_inline:
             self.volume.seek(self.offset + Inode.i_block.offset)
@@ -291,7 +291,7 @@ class Inode(Ext4Struct):
         return BlockIO(self)
 
     def open(self, mode="rb", encoding=None, newline=None):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def xattrs(self):

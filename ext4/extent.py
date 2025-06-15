@@ -6,7 +6,7 @@ from .struct import Ext4Struct
 from .struct import crc32c
 
 
-class ExtentBlocks(object):
+class ExtentBlocks:
     def __init__(self, extent):
         self.extent = extent
 
@@ -75,7 +75,7 @@ class ExtentHeader(Ext4Struct):
         self.extents = []
 
         offset = self.offset + self.size
-        for i in range(0, self.eh_entries):
+        for i in range(self.eh_entries):
             if self.eh_depth == 0:
                 self.extents.append(Extent(self, offset, i))
                 offset += sizeof(Extent)
@@ -218,7 +218,7 @@ class ExtentTail(Ext4Struct):
         return self.tree.inode
 
 
-class ExtentTree(object):
+class ExtentTree:
     def __init__(self, inode):
         self.inode = inode
         if not self.has_extents:

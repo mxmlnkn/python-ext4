@@ -2,7 +2,7 @@ import io
 import errno
 
 
-class BlockIOBlocks(object):
+class BlockIOBlocks:
     def __init__(self, blockio):
         self.blockio = blockio
 
@@ -69,7 +69,7 @@ class BlockIO(io.RawIOBase):
             offset += len(self)
 
         elif mode != io.SEEK_SET:
-            raise NotImplementedError()
+            raise NotImplementedError
 
         if offset < 0:
             raise OSError(errno.EINVAL, "Invalid argument")
@@ -109,5 +109,4 @@ class BlockIO(io.RawIOBase):
 
             data += block
 
-        data = data[:size]
-        return data
+        return data[:size]

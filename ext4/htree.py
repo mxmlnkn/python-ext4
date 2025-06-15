@@ -27,7 +27,7 @@ class DotDirectoryEntry2(LittleEndianStructure):
         if self.name in (b".\0\0\0", b".\0\0\0"):
             return
 
-        message = f"{self} dot or dotdot entry name invalid! " f"actual={self.name}"
+        message = f"{self} dot or dotdot entry name invalid! actual={self.name}"
         if not self.ignore_magic:
             raise MagicError(message)
 
@@ -79,7 +79,7 @@ class DXEntriesBase(DXBase):
 
     @property
     def entries(self):
-        for i in range(0, self.count - 1):
+        for i in range(self.count - 1):
             yield DXEntry(self, i)
 
 
