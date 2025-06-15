@@ -230,8 +230,7 @@ class ExtentTree(object):
             header_offset = to_process.pop(0)
             header = ExtentHeader(self, header_offset)
             self.headers.append(header)
-            for index in header.indices:
-                to_process.append(index.ei_leaf * self.volume.block_size)
+            to_process.extend(index.ei_leaf * self.volume.block_size for index in header.indices)
 
     @property
     def volume(self):

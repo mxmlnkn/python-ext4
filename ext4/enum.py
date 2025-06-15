@@ -7,11 +7,7 @@ def TypedEnumerationType(_type):
     class EnumerationType(type(_type)):  # type: ignore
         def __new__(metacls, name, bases, data):
             if "_members_" not in data:
-                _members_ = {}
-                for key, value in data.items():
-                    if not key.startswith("_"):
-                        _members_[key] = value
-
+                _members_ = {key: value for key, value in data.items() if not key.startswith("_")}
                 data["_members_"] = _members_
 
             else:

@@ -27,11 +27,7 @@ class BlockIOBlocks(object):
         return self.blockio.ee_len
 
     def __contains__(self, ee_block):
-        for extent in self.blockio.extents:
-            if ee_block in extent.blocks:
-                return True
-
-        return False
+        return any(ee_block in extent.blocks for extent in self.blockio.extents)
 
     def __getitem__(self, ee_block):
         for extent in self.blockio.extents:
