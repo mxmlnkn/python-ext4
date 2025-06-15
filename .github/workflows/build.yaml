@@ -8,10 +8,30 @@ on:
   release:
     types: [released]
 permissions: read-all
+
 jobs:
+  style-check:
+    name: Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Git repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+          cache: 'pip'
+      - name: Install Dependencies
+        run: python3 -m pip install .
+      - name: Codespell
+        run: |
+          python3 -m pip install codespell
+          codespell $( git ls-tree -r --name-only HEAD | 'grep' -E '[.](py|md|txt|sh|yml)' )
+
   test:
     name: Test on ${{ matrix.os }} python ${{ matrix.python }}
     runs-on: ${{ matrix.os }}
+    needs: [style-check]
     strategy:
       fail-fast: false
       matrix:
@@ -33,9 +53,15 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
+      - name: Install ext4
+        run: python3 -m pip install .
       - name: Run test
+        working-directory: tests
         shell: bash
-        run: ./test.sh
+        run: |
+          python3 -m pip install pytest
+          pytest test.py
+
   build:
     name: Build pip package
     runs-on: ubuntu-latest
@@ -57,6 +83,7 @@ jobs:
           name: pip
           path: dist/*
           if-no-files-found: error
+
   publish:
     name: Publish to PyPi
     if: github.repository == 'Eeems/python-ext4' && github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
@@ -79,6 +106,7 @@ jobs:
         with:
           packages-dir: ${{ steps.download.outputs.download-path }}
           skip-existing: true
+
   release:
     name: Add pip to release
     if: github.repository == 'Eeems/python-ext4' && github.event_name == 'release' && startsWith(github.ref, 'refs/tags')

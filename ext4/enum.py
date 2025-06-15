@@ -317,7 +317,7 @@ class EXT4_FL(TypedCEnumeration(c_uint32)):
     JOURNAL_DATA = 0x00004000  # file data should be journaled
     NOTAIL = 0x00008000  # file tail should not be merged
     DIRSYNC = 0x00010000  # dirsync behaviour (directories only)
-    TOPDIR = 0x00020000  # Top of directory hierarchie
+    TOPDIR = 0x00020000  # Top of directory hierarchy
     HUGE_FILE = 0x00040000  # Set to each huge file
     EXTENTS = 0x00080000  # Inode uses extents
     VERITY = 0x00100000  # Verity protected inode
