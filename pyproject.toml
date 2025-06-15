@@ -22,7 +22,11 @@ classifiers = [
     "Topic :: System :: Filesystems",
     "Topic :: Utilities",
 ]
-dynamic = ["dependencies", "readme"]
+dependencies = [
+    "cachetools ~= 5.3",
+    "crcmod ~= 1.7",
+]
+dynamic = ["readme"]
 
 [project.urls]
 Homepage = "https://github.com/Eeems/python-ext4"
@@ -35,7 +39,6 @@ packages = [
 ]
 
 [tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
 readme = {file= ["README.md"], content-type = "text/markdown"}
 
 [build-system]
